@@ -1,11 +1,11 @@
 module Raddocs
   class App < Sinatra::Base
-    set :haml, :format => :html5
+    helpers Sinatra::JSON
     set :root, File.join(File.dirname(__FILE__), "..")
 
     get "/" do
       index = JSON.parse(File.read("#{docs_dir}/index.json"))
-      haml :index, :locals => { :index => index }
+      json index
     end
 
     get "/custom-css/*" do
@@ -29,8 +29,9 @@ module Raddocs
       file_content = File.read(file)
 
       example = JSON.parse(file_content)
-      example["parameters"] = Parameters.new(example["parameters"]).parse
-      haml :example, :locals => { :example => example }
+      #example["parameters"] = Parameters.new(example["parameters"]).parse
+      #haml :example, :locals => { :example => example }
+      json example
     end
 
     not_found do

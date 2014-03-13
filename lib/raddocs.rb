@@ -1,6 +1,7 @@
 Encoding.default_external = Encoding::UTF_8
 
 require 'sinatra/base'
+require 'sinatra/json'
 require 'json'
 require 'raddocs/configuration'
 require 'raddocs/app'
